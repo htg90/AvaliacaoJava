@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Avaliação Java</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    
+    <body ng-app="App">    
+        <div ng-controller="ProdutoController as controller">
+            <h1>Avaliação Java</h1>
+            <h5>{{controller.usuario}}</h5><br>
+
+
+            <div style="border: 1px solid black;" ng-show="controller.produto && !controller.filtrar">
+                <label for="produtoId">ID do Produto: </label>
+                <input type="number" id="produtoId"
+                       ng-model="controller.produto.id" disabled><br>
+
+                <label for="nomeProduto">Nome do produto: </label>
+                <input type="text" id="name" ng-model="controller.produto.name"><br>
+
+                <label for="descricaoProduto">Descrição: </label>
+                <textarea row="4" id="description" ng-model="controller.produto.description"></textarea><br>
+
+                <label for="imagemProduto">Caminho da Imagem: </label>
+                <input type="text" id="image" ng-model="controller.produto.image.caminho"><br>
+
+                <label for="produtoParentId">ID do Pai do Produto: </label>
+                <input type="number" id="produtoParentId"
+                       ng-model="controller.produto.idParent"><br>
+
+                <button type="button" ng-click="controller.salvar()">Salvar</button>
+                <button type="button" ng-click="controller.produto = undefined">Cancelar</button>
+            </div>
+            <div style="border: 1px solid black;" ng-show="!controller.produto && !controller.filtrar && !controller.relacionador">
+
+                <button type="button" ng-click="controller.novo()">Novo</button><br>
+                <label for="produtoParentId">Filtros: </label>
+                <button type="button" ng-click="controller.atualizarTabela()">Todos</button>
+                <button type="button" ng-click="controller.relacionar()">Relacionados</button>
+                <button type="button" ng-click="controller.produto = undefined;
+                        controller.relacionador = undefined;
+                        controller.filtrar = {}">Selecionar Usando um ID específico</button>
+                <br>
+                <table border="1">
+                    <tr>
+                        <th>ID DO PRODUTO</th>
+                        <th>NOME DO PRODUTO</th>
+                        <th>DESCRIÇÃO DO PRODUTO</th>
+                        <th>IMAGEM DO PRODUTO</th>
+                        <th>ID DO PAI DO PRODUTO</th>
+                        <th>OPÇÕES</th>
+                    </tr>
+                    <tr ng-repeat="produto in controller.produtos">
+                        <td>{{produto.id}}</td>
+                        <td>{{produto.name}}</td>
+                        <td>{{produto.description}}</td>
+                        <td><image width="50px" height="50px" align="center"
+                                   src={{produto.image.caminho}} /></td>
+                        <td>{{produto.idParent}}</td>
+                        <td>
+                            <button type="button" ng-click="controller.alterar(produto)">Alterar</button>
+                            <button type="button" ng-click="controller.deletar(produto)">Excluir</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="border: 1px solid black;" ng-show="controller.filtrar">
+                <label for="idLabelBuscar">Digite o ID: </label>
+                <input type="text" id="buscar" ng-model="controller.txtBuscar"><br>
+                <label for="idLabelBuscar">Filtros </label>
+                <button type="button" ng-click="">Sem relação</button>
+                <button type="button" ng-click="controller.buscarPorId()">Com relação</button>
+                <button type="button" ng-click="controller.filtrar = undefined; 
+                        controller.produto = undefined">Cancelar</button>
+
+                <table border="1">
+                    <tr>
+                        <th>ID DO PRODUTO</th>
+                        <th>NOME DO PRODUTO</th>
+                        <th>DESCRIÇÃO DO PRODUTO</th>
+                        <th>IMAGEM DO PRODUTO</th>
+                        <th>ID DO PAI DO PRODUTO</th>
+                    </tr>
+                    <tr ng-show="controller.produto">
+                        <td>{{controller.produto.id}}</td>
+                        <td>{{controller.produto.name}}</td>
+                        <td>{{controller.produto.description}}</td>
+                        <td>{{controller.produto.image.caminho}}</td>
+                        <td>{{controller.produto.idParent}}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="border: 1px solid black;" ng-show="controller.relacionador">
+                <label for="idLabelBuscar">Digite:  </label>
+                <input type="text" id="buscar" ng-model="controller.txtBuscar"><br>
+                <label for="idLabelBuscar">Filtros </label>
+                <button type="button" ng-click="controller.buscarPorImagem()">Imagem</button>
+                <button type="button" ng-click="controller.buscarPorPai()">Produto</button>
+                <button type="button" ng-click="controller.cancelar()">Cancelar</button>
+                <table border="1">
+                    <tr>
+                        <th>ID DO PRODUTO</th>
+                        <th>NOME DO PRODUTO</th>
+                        <th>DESCRIÇÃO DO PRODUTO</th>
+                        <th>IMAGEM DO PRODUTO</th>
+                        <th>ID DO PAI DO PRODUTO</th>
+                    </tr>
+                    <tr ng-repeat="produto in controller.produtos">
+                        <td>{{produto.id}}</td>
+                        <td>{{produto.name}}</td>
+                        <td>{{produto.description}}</td>
+                        <td><image width="50px" height="50px" align="center"
+                                   src={{produto.image.caminho}} /></td>
+                        <td>{{produto.idParent}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <script src="resources/angular.js"></script>
+        <script src="resources/angularController.js"></script>
+    </body>
+</html>
