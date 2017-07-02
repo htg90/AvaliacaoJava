@@ -1,0 +1,23 @@
+{
+    "elements": {},
+    "attributes": {
+        "ng-show": {
+            "context": "div"
+        },
+        "ng-model": {
+            "context": "input"
+        },
+        "ng-click": {
+            "context": "button"
+        },
+        "ng-controller": {
+            "context": "div"
+        },
+        "ng-repeat": {
+            "context": "tr"
+        },
+        "ng-app": {
+            "context": "body"
+        }
+    }
+}
